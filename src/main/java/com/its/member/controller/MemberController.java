@@ -17,6 +17,6 @@ public class MemberController {
     public String saveForm(){
         return "memberPages/save";
     }
-
+    //회원가입처리
 
 }
