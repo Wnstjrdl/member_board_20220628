@@ -12,14 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class MemberController {
     private  final  MemberService memberService;
-
+// 회원가입
     @GetMapping("/save")
     public String saveForm(){
         return "memberPages/save";
     }
-    @PostMapping("/save")
-    public  String save(){
 
-    }
 
 }
