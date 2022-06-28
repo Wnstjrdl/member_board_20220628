@@ -3,6 +3,7 @@ package com.its.member.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
@@ -22,4 +23,8 @@ public class MemberEntity {
     private String memberName;
     @Column(length = 30)
     private String memberPhone;
+
+    @Column
+    private String memberProfile;
+
 }
