@@ -18,5 +18,10 @@ public class MemberController {
         return "memberPages/save";
     }
     //회원가입처리
+    @PostMapping("/save")
+    public String save(){
+        return  "memberPages/login";
+    }
+
 
 }
