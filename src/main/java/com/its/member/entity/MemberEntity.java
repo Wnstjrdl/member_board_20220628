@@ -16,11 +16,11 @@ public class MemberEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     @Column(name = "id")
     private Long id;
-    @Column(length = 30 )
+    @Column(length = 30 ,updatable = false)
     private  String memberId;
-    @Column(length = 30)
+    @Column(length = 30,nullable = false)
     private String memberPassword;
-    @Column(length = 20)
+    @Column(length = 20,nullable = false)
     private String memberName;
 
     @Column(length = 50)
@@ -30,7 +30,7 @@ public class MemberEntity {
     private String memberMobile;
 
 
-    @Column
+    @Column(length = 500)
     private String memberProfile;
 
 
@@ -40,6 +40,7 @@ public class MemberEntity {
         memberEntity.setMemberPassword(memberDTO.getMemberPassword());
         memberEntity.setMemberName(memberDTO.getMemberName());
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
+        memberEntity.setMemberMobile(memberDTO.getMemberMobile());
         memberEntity.setMemberProfile(memberDTO.getMemberProfile());
 
     return  memberEntity;

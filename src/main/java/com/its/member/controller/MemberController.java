@@ -4,11 +4,10 @@ import com.its.member.dto.MemberDTO;
 import com.its.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
@@ -27,6 +26,32 @@ public class MemberController {
         memberService.save(memberDTO);
         return  "memberPages/login";
     }
+    //로그인 화면
+    @GetMapping("/login")
+    public String loginForm(@RequestParam(value = "redirectURL", defaultValue = "/board/paging")String redirectURL, Model model){
+        model.addAttribute("redirectURL",redirectURL);
+        return  "memberPages/login";
+    }
+    //로그인처리
+    @PostMapping("/login")
+    public String login(@ModelAttribute MemberDTO memberDTO,Model model, HttpSession session){
+        MemberDTO loginResult=memberService.login(memberDTO);
+        if(loginResult != null){
+            model.addAttribute("loginResult",loginResult);
+            session.setAttribute("loginMemberId",loginResult.getMemberId());
+            session.setAttribute("id",loginResult.getId());
+            return  "redirect:board/paging";
+        }else {
+            return "memberPages/login";
 
+        }
+
+    }
+    //중복체크
+    @PostMapping("/IdCheck")
+    public @ResponseBody String IdCheck(@RequestParam String memberId){
+     String checkResult= memberService.IdCheck(memberId);
+     return checkResult;
+    }
 
 }

@@ -14,29 +14,44 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class MemberService {
-private final  MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
-    public Long save(MemberDTO memberDTO)throws IOException {
-    MultipartFile memberFile= memberDTO.getMemberFile();
-    String memberProfile=memberFile.getOriginalFilename();
-    memberProfile=System.currentTimeMillis()+"_"+memberProfile;
-    String savePath="D:\\springboot_img\\"+memberProfile;
+    public Long save(MemberDTO memberDTO) throws IOException {
+        MultipartFile memberFile = memberDTO.getMemberFile();
+        String memberProfile = memberFile.getOriginalFilename();
+        memberProfile = System.currentTimeMillis() + "_" + memberProfile;
+        String savePath = "D:\\springboot_img\\" + memberProfile;
 
-       if(!memberFile.isEmpty()){
-           memberFile.transferTo(new File(savePath));
-       }
-       memberDTO.setMemberProfile(memberProfile);
-        Long savedId=memberRepository.save(MemberEntity.toSaveEntity(memberDTO)).getId();
-        return  savedId;
+        if (!memberFile.isEmpty()) {
+            memberFile.transferTo(new File(savePath));
+        }
+        memberDTO.setMemberProfile(memberProfile);
+        Long savedId = memberRepository.save(MemberEntity.toSaveEntity(memberDTO)).getId();
+        return savedId;
 
     }
 
 
+    public MemberDTO login(MemberDTO memberDTO) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberId(memberDTO.getMemberId());
+        if (optionalMemberEntity.isPresent()) {
+            MemberEntity loginEntity = optionalMemberEntity.get();
+            if (loginEntity.getMemberPassword().equals(memberDTO.getMemberPassword())) {
+                return MemberDTO.toMemberDTO(loginEntity);
+            } else {
+                return null;
+            }
+        }else {
+            return null;
+        }
+    }
 
-
-
-
-
-
-
+    public String IdCheck(String memberId) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberId(memberId);
+        if(optionalMemberEntity.isEmpty()){
+            return "ok";
+        }else {
+            return  "no";
+        }
+    }
 }
