@@ -9,12 +9,11 @@
     <h2>save.html</h2>
 
     <form action="/member/save" method="post"  enctype="multipart/form-data" >
-       아이디:<input type="text" name="memberId" id="memberId" placeholder="아이디를 입력하세요" onblur="IdDuplicate()"><br />
-        <span id="Id-dup-result"></span><br />
+        이메일:<input type="text" name="memberEmail" id="memberEmail" placeholder="이메일을 입력하세요" onblur="EmailDuplicate()"><br />
+        <span id="Email-dup-result"></span><br />
        비밀번호:<input type="text" name="memberPassword" id="memberPassword" placeholder="비밀번호를 입력하세요"><br />
         <div id="pwCheck"></div><br />
        이름:<input type="text" name="memberName" placeholder="이름을 입력하세요"><br />
-       이메일:<input type="text" name="memberEmail" placeholder="이메일을 입력하세요"><br />
         전화번호:<input type="text" name="memberMobile" id="memberMobile" placeholder="전화번호 입력하세요"><br />
         <div id="MobileCheck"></div><br />
         프로필:<input type="file" name="memberFile" ><br />
@@ -22,15 +21,15 @@
     </form>
 </body>
 <script th:inline="javascript">
-    const IdDuplicate = () => {
-        const  Id=document.getElementById("memberId").value;
-        const  checkResult=document.getElementById("Id-dup-result");
+    const EmailDuplicate = () => {
+        const  Email=document.getElementById("memberEmail").value;
+        const  checkResult=document.getElementById("Email-dup-result");
         $.ajax({
            type:"post",
-           url:"/member/IdCheck",
+           url:"/member/EmailCheck",
            dataType: "text",
             data:{
-               "memberId":Id
+               "memberEmail":Email
             },
             success:function (result){
                if(result== "ok"){

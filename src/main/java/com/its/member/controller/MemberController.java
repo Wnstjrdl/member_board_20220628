@@ -38,7 +38,7 @@ public class MemberController {
         MemberDTO loginResult=memberService.login(memberDTO);
         if(loginResult != null){
             model.addAttribute("loginResult",loginResult);
-            session.setAttribute("loginMemberId",loginResult.getMemberId());
+            session.setAttribute("loginEmail", loginResult.getMemberEmail());
             session.setAttribute("id",loginResult.getId());
             return  "redirect:board/paging";
         }else {
@@ -48,9 +48,9 @@ public class MemberController {
 
     }
     //중복체크
-    @PostMapping("/IdCheck")
-    public @ResponseBody String IdCheck(@RequestParam String memberId){
-     String checkResult= memberService.IdCheck(memberId);
+    @PostMapping("/EmailCheck")
+    public @ResponseBody String EmailCheck(@RequestParam String memberEmail){
+     String checkResult= memberService.EmailCheck(memberEmail);
      return checkResult;
     }
 

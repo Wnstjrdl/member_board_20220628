@@ -33,7 +33,7 @@ public class MemberService {
 
 
     public MemberDTO login(MemberDTO memberDTO) {
-        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberId(memberDTO.getMemberId());
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberEmail(memberDTO.getMemberEmail());
         if (optionalMemberEntity.isPresent()) {
             MemberEntity loginEntity = optionalMemberEntity.get();
             if (loginEntity.getMemberPassword().equals(memberDTO.getMemberPassword())) {
@@ -41,13 +41,13 @@ public class MemberService {
             } else {
                 return null;
             }
-        }else {
+        } else {
             return null;
         }
     }
 
-    public String IdCheck(String memberId) {
-        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberId(memberId);
+    public String EmailCheck(String memberEmail) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberEmail(memberEmail);
         if(optionalMemberEntity.isEmpty()){
             return "ok";
         }else {
