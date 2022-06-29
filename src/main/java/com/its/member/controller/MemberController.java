@@ -28,10 +28,10 @@ public class MemberController {
     }
     //로그인 화면
     @GetMapping("/login")
-    public String loginForm(@RequestParam(value = "redirectURL", defaultValue = "/board/paging")String redirectURL, Model model){
-        model.addAttribute("redirectURL",redirectURL);
-        return  "memberPages/login";
+    public String loginForm() {
+        return "memberPages/login";
     }
+
     //로그인처리
     @PostMapping("/login")
     public String login(@ModelAttribute MemberDTO memberDTO,Model model, HttpSession session){
