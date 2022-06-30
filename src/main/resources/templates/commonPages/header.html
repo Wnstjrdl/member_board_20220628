@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<th:block th:fragment="header" >
+<th:block th:fragment="header">
     <meta charset="UTF-8">
     <title>헤더</title>
     <style>
@@ -11,7 +11,7 @@
     <div id="header">
             header
     <div>
-        <a href="/">돌아가기</a>
+        <li><a href="/">돌아가기</a></li>
     </div>
 
      <div th:if="${session.loginEmail}">
