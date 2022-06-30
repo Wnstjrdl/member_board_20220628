@@ -1,6 +1,5 @@
 package com.its.member.repository;
 
-import com.its.member.dto.BoardDTO;
 import com.its.member.entity.BoardEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 

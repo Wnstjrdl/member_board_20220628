@@ -1,11 +1,16 @@
 package com.its.member.service;
 
+import com.its.member.common.PagingConst;
 import com.its.member.dto.BoardDTO;
 import com.its.member.entity.BoardEntity;
 import com.its.member.entity.MemberEntity;
 import com.its.member.repository.BoardRepository;
 import com.its.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,4 +45,21 @@ public class BoardService {
         }
    }
 
+
+    public Page<BoardDTO> paging(Pageable pageable) {
+        int page = pageable.getPageNumber();
+
+        page = (page == 1)? 0: (page-1);
+        Page<BoardEntity> boardEntities =
+                boardRepository.findAll(PageRequest.of(page, PagingConst.PAGE_LIMIT, Sort.by(Sort.Direction.DESC, "id")));
+        Page<BoardDTO> boardList = boardEntities.map(
+                board -> new BoardDTO(board.getId(),
+                        board.getBoardTitle(),
+                        board.getBoardWriter(),
+                        board.getBoardHits(),
+                        board.getBoardCreatedDate()
+
+                ));
+        return boardList;
+    }
 }

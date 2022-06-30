@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</head>
+<body>
+    <h2>page.html</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">글번호</th>
+            <th scope="col">작성자</th>
+            <th scope="col">제목</th>
+            <th scope="col">작성시간</th>
+            <th scope="col">조회수</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="board:${boardList}">
+            <td th:text="${board.id}"></td>
+            <td th:text="${board.boardWriter}"></td>
+            <td th:text="${board.boardTitle}"></td>
+            <td th:text="*{#temporals.format(board.boardCreatedDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td th:text="${board.boardHits}"></td>
+
+
+        </tr>
+    </tbody>
+    <div class="container">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" th:href="@{/board/paging(page=1)}">
+                    <span>First</span>
+                </a>
+            </li>
+
+            <li th:class="${boardList.first} ? 'disabled'" class="page-item">
+
+                <a class="page-link" th:href="${boardList.first} ? '#' : @{/board/paging(page=${boardList.number})}">
+                    <span><</span>
+                </a>
+            </li>
+
+            <li th:each="page: ${#numbers.sequence(startPage,endPage)}"
+                th:class="${page == boardList.number + 1} ? 'page-item active'" class="page-item">
+                <a class="page-link" th:text="${page}" th:href="@{/board/paging(page=${page})}"></a>
+            </li>
+
+            <li th:class="${boardList.last} ? 'disabled'">
+                <a class="page-link" th:href="${boardList.last} ? '#' :  @{/board/paging(page=${boardList.number + 2})}">
+                    <span>&gt;</span>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/board/paging(page=${boardList.totalPages})}">
+                    <span>Last</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</table>
+</body>
+</html>
