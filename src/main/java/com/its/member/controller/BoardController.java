@@ -51,5 +51,19 @@ public class BoardController {
 
         return "boardPages/detail";
     }
+    // 삭제요청
+    @GetMapping("/delete/{id}")
+    public  String delete(@PathVariable Long id){
+        boardService.delete(id);
+        return "redirect:/board/paging";
+    }
+    //수정화면
+    @GetMapping("/update/{id}")
+    public String updateForm(@PathVariable Long id,Model model){
+        BoardDTO boardDTO= boardService.findById(id);
+        model.addAttribute("boardUpdate",boardDTO);
+        return "boardPages/update";
+
+    }
 
 }

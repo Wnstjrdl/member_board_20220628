@@ -37,6 +37,7 @@
             </div>
           <div th:if="${session.loginEmail} == ${board.boardWriter}">
            <td>  <button onclick="deleteBt()" >삭제</button></td>
+             <td> <a href="/boardPages/update/">업데이트</a> </td>
             </div>
         </tr>
 
