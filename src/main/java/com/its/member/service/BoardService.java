@@ -26,23 +26,23 @@ public class BoardService {
     private final MemberRepository memberRepository;
    public Long save(BoardDTO boardDTO) throws IOException {
        MultipartFile boardFile = boardDTO.getBoardFile();
-        String boardFileName= boardFile.getOriginalFilename();
-        boardFileName= System.currentTimeMillis()+ "_"+ boardFileName;
-        String savePath=  "D:\\springboot_img\\"+boardFileName;
-        if(!boardFile.isEmpty()){
-            boardFile.transferTo(new File(savePath));
-        }
-        boardDTO.setBoardFileName(boardFileName);
+       String boardFileName = boardFile.getOriginalFilename();
+       boardFileName = System.currentTimeMillis() + "_" + boardFileName;
+       String savePath = "D:\\springboot_img\\" + boardFileName;
+       if (!boardFile.isEmpty()) {
+           boardFile.transferTo(new File(savePath));
+       }
+       boardDTO.setBoardFileName(boardFileName);
 
-        Optional<MemberEntity> optionalMemberEntity=
-                memberRepository.findByMemberEmail(boardDTO.getBoardWriter());
-        if(optionalMemberEntity.isPresent()){
-            MemberEntity memberEntity=optionalMemberEntity.get();
-            Long savedId= boardRepository.save(BoardEntity.toSaveEntity(boardDTO,memberEntity)).getId();
-            return  savedId;
-        }else {
-            return null;
-        }
+       Optional<MemberEntity> optionalMemberEntity =
+               memberRepository.findByMemberEmail(boardDTO.getBoardWriter());
+       if (optionalMemberEntity.isPresent()) {
+           MemberEntity memberEntity = optionalMemberEntity.get();
+           Long savedId = boardRepository.save(BoardEntity.toSaveEntity(boardDTO, memberEntity)).getId();
+           return savedId;
+       } else {
+           return null;
+       }
    }
 
 
@@ -59,7 +59,18 @@ public class BoardService {
                         board.getBoardHits(),
                         board.getBoardCreatedDate()
 
+
                 ));
         return boardList;
+    }
+
+    public BoardDTO findById(Long id) {
+
+       Optional<BoardEntity> optionalBoardEntity=boardRepository.findById(id);
+       if(optionalBoardEntity.isPresent()){
+           return BoardDTO.toBoardDTO(optionalBoardEntity.get());
+       }else {
+           return null;
+       }
     }
 }

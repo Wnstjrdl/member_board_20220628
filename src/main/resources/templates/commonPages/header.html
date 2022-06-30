@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="header" >
+    <meta charset="UTF-8">
+    <title>헤더</title>
+    <style>
+        #header{
+            background-color: rebeccapurple;
+        }
+    </style>
+    <div id="header">
+            header
+    <div>
+        <a href="/">돌아가기</a>
+    </div>
+
+     <div th:if="${session.loginEmail}">
+         <a href="/member/logout">로그아웃</a>
+     </div>
+
+
+    </div>
+
+</th:block>
+</html>

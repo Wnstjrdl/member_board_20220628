@@ -53,5 +53,11 @@ public class MemberController {
      String checkResult= memberService.EmailCheck(memberEmail);
      return checkResult;
     }
+    //로그아웃
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/";
+    }
 
 }
