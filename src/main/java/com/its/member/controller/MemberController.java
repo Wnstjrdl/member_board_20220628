@@ -72,10 +72,24 @@ public class MemberController {
         model.addAttribute("memberList",memberDTOList);
         return "memberPages/findAll";
     }
-
+    //회원삭제
    @GetMapping("/delete/{id}")
    public String delete(@PathVariable Long id){
        memberService.delete(id);
       return "redirect:/member/findAll";
+    }
+
+
+
+
+
+    //상세조회
+    @GetMapping("/detail/{id}")
+    public  String findById(@PathVariable Long id,Model model){
+        MemberDTO memberDTO=memberService.findById(id);
+        model.addAttribute("member",memberDTO);
+
+        return "memberPages/detail";
+
     }
 }

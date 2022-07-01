@@ -15,7 +15,6 @@
 
      <div th:if="${session.loginEmail}">
          <a href="/member/logout">로그아웃</a> &nbsp;
-         <a href="/">마이페이지로 이동</a>
          <div th:if="${session.loginEmail.toString().equals('admin')}">
              <a href="/member/admin">관리자모드</a>
          </div>

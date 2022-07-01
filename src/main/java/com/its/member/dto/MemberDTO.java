@@ -21,6 +21,7 @@ public class MemberDTO {
     private String memberProfile;
 
 
+
     public  static MemberDTO toMemberDTO(MemberEntity memberEntity){
         MemberDTO memberDTO=new MemberDTO();
         memberDTO.setId(memberEntity.getId());
