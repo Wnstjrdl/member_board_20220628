@@ -5,6 +5,8 @@ import com.its.member.entity.MemberEntity;
 import com.its.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -65,5 +67,10 @@ public class MemberService {
           memberDTOList.add(memberDTO);
       }
       return  memberDTOList;
+    }
+
+
+    public void delete(Long id) {
+        memberRepository.deleteById(id);
     }
 }

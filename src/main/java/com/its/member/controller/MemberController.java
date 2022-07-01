@@ -65,10 +65,17 @@ public class MemberController {
     public String adminForm(){
         return "memberPages/admin";
     }
+    //회원목록
     @GetMapping("/findAll")
     public String findAll(Model model){
         List<MemberDTO> memberDTOList=memberService.findAll();
         model.addAttribute("memberList",memberDTOList);
         return "memberPages/findAll";
+    }
+
+   @GetMapping("/delete/{id}")
+   public String delete(@PathVariable Long id){
+       memberService.delete(id);
+      return "redirect:/member/findAll";
     }
 }
