@@ -65,5 +65,12 @@ public class BoardController {
         return "boardPages/update";
 
     }
+    // 수정처리
+    @PostMapping("/update")
+    public String update(@ModelAttribute BoardDTO boardDTO){
+        boardService.update(boardDTO);
+        System.out.println("boardDTO="+boardDTO);
+        return  "redirect:/board/detail/"+boardDTO.getId();
+    }
 
 }

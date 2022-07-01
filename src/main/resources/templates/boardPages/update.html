@@ -9,11 +9,20 @@
     <h2>update.html</h2>
 
     <form action="/board/update" method="post" name="updateForm">
-        글 제목<input type="text"  th:value="${boardUpdate.boardTitle}" readonly><br/>
+        글 번호 <input type="text" name="id" th:value="${boardUpdate.id}" readonly><br />
+        글 제목<input type="text" name="boardTitle"  th:value="${boardUpdate.boardTitle}" ><br/>
         작성자<input type="text" name="boardWriter" th:value="${boardUpdate.boardWriter}" readonly><br/>
         글내용<input type="text" name="boardContents" th:value="${boardUpdate.boardContents}"><br/>
+<!--        조회수<input type="text" name="boardHits" th:value="${boardUpdate.boardHits}"><br />-->
         파일:<input type="file"  name="boardFileName" th:value="${boardUpdate.boardFileName}"><br />
         <input type="button" th:onclick="update()" value="수정" >
     </form>
 </body>
+<script th:inline="javascript">
+    const update = () => {
+
+        updateForm.submit();
+    }
+
+</script>
 </html>

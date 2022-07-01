@@ -20,7 +20,6 @@
     <td>작성시간</td>
     <td>조회수</td>
     <td>첨부파일</td>
-    <td>삭제</td>
 
 </tr>
 </thead>
@@ -36,8 +35,11 @@
             <div th:if="${session.loginEmail} == ${board.boardWriter}">
             </div>
           <div th:if="${session.loginEmail} == ${board.boardWriter}">
-           <td>  <button onclick="deleteBt()" >삭제</button></td>
-             <td> <a href="/boardPages/update/">업데이트</a> </td>
+           <td>  <button class="btn btn-danger" onclick="deleteBt()" >삭제</button></td>
+             <td> <button class="btn btn-primary" onclick="updateBt()">업데이트</button> </td>
+            </div>
+            <div th:if="${session.loginEmail.toString().equals('admin')}">
+                <td>  <button class="btn btn-danger"  onclick="deleteBt()" >관리자용삭제</button></td>
             </div>
         </tr>
 
@@ -48,6 +50,10 @@
     const deleteBt = () => {
         const id=[[${board.id}]]
         location.href="/board/delete/"+id;
+    }
+    const updateBt = () => {
+        const id=[[${board.id}]]
+      location.href="/board/update/"+id;
     }
 
 
