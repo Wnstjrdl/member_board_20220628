@@ -2,10 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="header">
     <meta charset="UTF-8">
-    <title>헤더</title>
     <style>
         #header{
-            background-color: rebeccapurple;
+            background-color: ivory;
         }
     </style>
     <div id="header">
@@ -15,11 +14,14 @@
     </div>
 
      <div th:if="${session.loginEmail}">
-         <a href="/member/logout">로그아웃</a>
+         <a href="/member/logout">로그아웃</a> &nbsp;
+         <a href="/">마이페이지로 이동</a>
+         <div th:if="${session.loginEmail.toString().equals('admin')}">
+             <a href="/member/admin">관리자모드</a>
+         </div>
      </div>
 
-
-    </div>
+              </div>
 
 </th:block>
 </html>
