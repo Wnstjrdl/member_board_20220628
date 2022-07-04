@@ -92,4 +92,30 @@ public class MemberController {
         return "memberPages/detail";
 
     }
+
+    //마이 페이지
+    @GetMapping("/myPage")
+    public String myPage(){
+        return "memberPages/myPage";
+    }
+
+
+
+
+    // 수정 화면
+    @GetMapping("/update")
+    public  String updateForm(HttpSession session, Model model){
+        Long id= (Long)session.getAttribute("id");
+        MemberDTO memberDTO =memberService.findById(id);
+        model.addAttribute("updateMember",memberDTO);
+        return "memberPages/update";
+    }
+
+   @PostMapping("/update")
+    public  String update(@ModelAttribute MemberDTO memberDTO){
+       memberService.update(memberDTO);
+       return  "redirect:/member/detail/"+memberDTO.getId();
+    }
+
+
 }

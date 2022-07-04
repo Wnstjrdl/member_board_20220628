@@ -21,13 +21,15 @@
 
     <tr th:each="member:${memberList}">
         <td th:text="${member.id}"></td>
-        <td> <a th:href="@{|/member/detail/${member.id}|}"th:text="${member.memberEmail}"></a></td>
+        <td th:text="${member.memberEmail}"></td>
         <td th:text="${member.memberPassword}"></td>
         <td th:text="${member.memberName}"></td>
         <td th:text="${member.memberMobile}"></td>
         <td><img th:src="@{|/upload/${member.memberProfile}|}" width="100" height="100" alt=""></td>
         <td> <a th:href="@{|/member/delete/${member.id}|}">삭제</a> </td>
-
+        <td>
+            <a th:href="@{|/member/detail/${member.id}|}">조회</a>
+        </td>
     </tr>
 </table>
 
