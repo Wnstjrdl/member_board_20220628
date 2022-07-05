@@ -27,8 +27,6 @@
             <td><a th:href="@{|/board/detail/${board.id}|}"  th:text="${board.boardTitle}"></a></td>
             <td th:text="*{#temporals.format(board.boardCreatedDate,'yyyy-MM-dd HH:mm:ss')}"></td>
             <td th:text="${board.boardHits}"></td>
-
-
         </tr>
         </tbody>
     </table>

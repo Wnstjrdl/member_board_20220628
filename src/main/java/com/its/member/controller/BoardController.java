@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -73,10 +74,18 @@ public class BoardController {
         System.out.println("boardDTO="+boardDTO);
         return  "redirect:/board/detail/"+boardDTO.getId();
     }
-    @GetMapping("/search")
-    public String search(@RequestParam("q1")String q1,
-            @RequestParam("q2") String q2, Model model) {
-        List<BoardDTO> searchList = boardService.search(q1,q2);
+
+    //제목
+@GetMapping("/search")
+public String search(@RequestParam("q1") String q1, Model model) {
+    List<BoardDTO> searchList = boardService.search(q1);
+    model.addAttribute("boardList", searchList);
+    return "boardPages/search";
+}
+//작성자
+    @GetMapping("/search2")
+    public String search2(@RequestParam("q2") String q2, Model model) {
+        List<BoardDTO> searchList = boardService.search2(q2);
         model.addAttribute("boardList", searchList);
         return "boardPages/search";
     }

@@ -9,16 +9,7 @@
     <h2>page.html</h2>
     <th:block th:replace="commonPages/header :: header"></th:block>
 
-    <div class="container mt-3">
-        <form        action="/board/search" method="get">
-            <select  name="q1">
-                <option  value="boardTitle">제목</option>
-                <option value="boardWriter">작성자</option>
-            </select>
-            <input type="text" name="q2" placeholder="검색어입력">
-            <input type="submit" value="검색">
-        </form>
-    </div>
+
 
 
 <table class="table table-hover">
@@ -32,12 +23,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr th:each="board:${boardList}">
-            <td th:text="${board.id}"></td>
-            <td th:text="${board.boardWriter}"></td>
-            <td><a th:href="@{|/board/detail/${board.id}|}"  th:text="${board.boardTitle}"></a></td>
-            <td th:text="*{#temporals.format(board.boardCreatedDate,'yyyy-MM-dd HH:mm:ss')}"></td>
-            <td th:text="${board.boardHits}"></td>
+    <tr th:each="board:${boardList}">
+        <td th:text="${board.id}"></td>
+        <td th:text="${board.boardWriter}"></td>
+        <td><a th:href="@{|/board/detail/${board.id}|}"  th:text="${board.boardTitle}"></a></td>
+        <td th:text="*{#temporals.format(board.boardCreatedDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${board.boardHits}"></td>
 
 
         </tr>
@@ -77,5 +68,19 @@
         </ul>
     </div>
 </table>
+    <div class="container mt-3">
+        <form action="/board/search" method="get">
+            <input type="text" name="q1" placeholder="제목으로검색하기">
+
+            <input type="submit" value="검색">
+        </form>
+    </div>
+
+    <div class="container mt-3">
+        <form action="/board/search2" method="get">
+            <input type="text" name="q2" placeholder="작성자로 검색하기">
+            <input type="submit" value="검색">
+        </form>
+    </div>
 </body>
 </html>

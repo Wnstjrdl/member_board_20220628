@@ -16,9 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -83,12 +81,32 @@ public class BoardService {
        boardRepository.save(BoardEntity.toUpdateEntity(boardDTO));
     }
 
-    public List<BoardDTO> search(String q1,String q2) {
-        List<BoardEntity> boardEntityList = boardRepository.findByBoardTitleContainingOrBoardContentsContaining(q1, q2);
+
+
+//public List<BoardDTO> search(String q) {
+//    List<BoardEntity> boardEntityList = boardRepository.findByBoardTitleContainingOrBoardWriterContaining(q, q);
+//    List<BoardDTO> boardDTOList = new ArrayList<>();
+//    for (BoardEntity boardEntity: boardEntityList) {
+//        boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+//    }
+//    return boardDTOList;
+//}
+public List<BoardDTO> search(String q1) {
+    List<BoardEntity> boardEntityList = boardRepository.findByBoardTitleContaining(q1);
+   List<BoardDTO> boardDTOList = new ArrayList<>();
+    for (BoardEntity boardEntity: boardEntityList) {
+       boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+   }
+    return boardDTOList;
+}
+
+    public List<BoardDTO> search2(String q2) {
+        List<BoardEntity> boardEntityList = boardRepository.findByBoardWriterContaining(q2);
         List<BoardDTO> boardDTOList = new ArrayList<>();
         for (BoardEntity boardEntity: boardEntityList) {
             boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
         }
         return boardDTOList;
-    }
+   }
+
 }
