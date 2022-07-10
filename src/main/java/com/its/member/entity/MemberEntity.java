@@ -36,6 +36,15 @@ public class MemberEntity {
     @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.PERSIST,orphanRemoval = false,fetch =FetchType.LAZY)
     List<BoardEntity> boardEntityList=new ArrayList<>();
 
+    @OneToMany(mappedBy = "memberEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CommentEntity> commentEntityList = new ArrayList<>();
+
+    @PreRemove
+    private  void  preRemove() {
+        boardEntityList.forEach(board -> board.setMemberEntity(null));
+        commentEntityList.forEach(comment -> comment.setMemberEntity(null));
+    }
+
     public  static  MemberEntity toSaveEntity(MemberDTO memberDTO){
         MemberEntity memberEntity= new MemberEntity();
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
