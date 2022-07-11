@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -63,9 +64,10 @@ public class BoardService {
                 ));
         return boardList;
     }
-
+@Transactional
     public BoardDTO findById(Long id) {
 
+       boardRepository.boardHits(id);
        Optional<BoardEntity> optionalBoardEntity=boardRepository.findById(id);
        if(optionalBoardEntity.isPresent()){
            return BoardDTO.toBoardDTO(optionalBoardEntity.get());
@@ -94,10 +96,10 @@ public List<BoardDTO> search(String q1) {
 
     public List<BoardDTO> search2(String q2) {
         List<BoardEntity> boardEntityList = boardRepository.findByBoardWriterContaining(q2);
-        List<BoardDTO> boardDTOList = new ArrayList<>();
-        for (BoardEntity boardEntity: boardEntityList) {
+       List<BoardDTO> boardDTOList = new ArrayList<>();
+       for (BoardEntity boardEntity: boardEntityList) {
             boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
-        }
+       }
         return boardDTOList;
    }
 

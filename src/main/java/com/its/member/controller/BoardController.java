@@ -84,14 +84,16 @@ public class BoardController {
 @GetMapping("/search")
 public String search(@RequestParam("q1") String q1, Model model) {
     List<BoardDTO> searchList = boardService.search(q1);
+
     model.addAttribute("boardList", searchList);
+
     return "boardPages/search";
 }
 //작성자
     @GetMapping("/search2")
     public String search2(@RequestParam("q2") String q2, Model model) {
-        List<BoardDTO> searchList = boardService.search2(q2);
+       List<BoardDTO> searchList = boardService.search2(q2);
         model.addAttribute("boardList", searchList);
-        return "boardPages/search";
+       return "boardPages/search";
     }
 }
