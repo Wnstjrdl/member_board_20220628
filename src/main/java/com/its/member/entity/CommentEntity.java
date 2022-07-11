@@ -1,10 +1,11 @@
 package com.its.member.entity;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+
 
 @Entity
 @Getter
@@ -28,4 +29,13 @@ public class CommentEntity extends  BaseEntity {
     @JoinColumn(name = "board_id")
     private BoardEntity boardEntity;
 
+    public  static  CommentEntity toSaveEntity( BoardEntity boardEntity,MemberEntity memberEntity){
+       CommentEntity commentEntity= new CommentEntity();
+       commentEntity.setCommentWriter(memberEntity.getMemberEmail());
+       commentEntity.setMemberEntity(memberEntity);
+       commentEntity.setBoardEntity(boardEntity);
+       return  commentEntity;
+
+
+    }
 }

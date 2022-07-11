@@ -2,8 +2,10 @@ package com.its.member.controller;
 
 import com.its.member.common.PagingConst;
 import com.its.member.dto.BoardDTO;
+import com.its.member.dto.CommentDTO;
 import com.its.member.dto.MemberDTO;
 import com.its.member.service.BoardService;
+import com.its.member.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +25,7 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
 
+    private final CommentService commentService;
     //글작성 화면
     @GetMapping("/save")
     public  String saveForm(){return "/boardPages/save";}
@@ -51,6 +54,8 @@ public class BoardController {
         model.addAttribute("board",boardDTO);
         System.out.println("boardDTO = " + boardDTO);
 
+        List<CommentDTO> commentDTOList=commentService.findAll(id);
+        model.addAttribute("commentList",commentDTOList);
         return "boardPages/detail";
     }
     // 삭제요청

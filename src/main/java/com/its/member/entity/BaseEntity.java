@@ -17,6 +17,8 @@ public class BaseEntity {
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime boardCreatedDate;
+    @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime commentCreatedDate;
 
 }

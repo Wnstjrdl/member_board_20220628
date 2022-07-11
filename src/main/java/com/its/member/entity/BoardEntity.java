@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter@Setter
@@ -34,8 +36,8 @@ public class BoardEntity extends BaseEntity {
     @JoinColumn(name = "member_id")
     private  MemberEntity memberEntity;
 
-//    @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-//    private List<CommentEntity> commentEntityList = new ArrayList<>();
+   @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+   private List<CommentEntity> commentEntityList = new ArrayList<>();
 
 
     public  static  BoardEntity toSaveEntity(BoardDTO boardDTO,MemberEntity memberEntity){
